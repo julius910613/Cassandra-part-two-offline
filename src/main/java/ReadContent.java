@@ -33,10 +33,10 @@ public class ReadContent {
 
     public void readLine() throws IOException, ParseException {
         try (
-                final FileInputStream fileInputStream = new FileInputStream(logFile);
-                final GZIPInputStream gzipInputStream = new GZIPInputStream(fileInputStream);
-                final InputStreamReader inputStreamReader = new InputStreamReader(gzipInputStream);
-                final BufferedReader bufferedReader = new BufferedReader(inputStreamReader)
+               final FileInputStream fileInputStream = new FileInputStream(logFile);
+               final GZIPInputStream gzipInputStream = new GZIPInputStream(fileInputStream);
+               final InputStreamReader inputStreamReader = new InputStreamReader(gzipInputStream);
+               final BufferedReader bufferedReader = new BufferedReader(inputStreamReader)
         ) {
 
             String line = null;
@@ -83,7 +83,10 @@ public class ReadContent {
 
                     cl.insertRow(clientID, date,actionString, statusString, sizeString);
                     count ++;
-                    System.out.println(count + "data has been insert");
+                    if(count % 1000000 == 0){
+                        System.out.println(count + "data has been insert");
+                    }
+                    //System.out.println(count + "data has been insert");
 
                 }
                 //assertEquals(5, tokens.length);

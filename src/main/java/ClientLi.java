@@ -57,7 +57,7 @@ public class ClientLi {
     public void insertRow(int clientID, Date timestamp, String action, String status,String size){
 
         ResultSetFuture queryFuture = session.executeAsync(new BoundStatement(rowCQL).bind(clientID, timestamp, action,status,size ));
-        System.out.print("\n data has been inserted");
+       // System.out.print("\n data has been inserted");
     }
 
 
