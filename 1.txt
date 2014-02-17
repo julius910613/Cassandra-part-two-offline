@@ -1,0 +1,5 @@
+34600 [30/Apr/1998:21:30:17 +0000] "GET /images/hm_bg.jpg HTTP/1.0" 200 24736
+232 [30/Apr/1998:21:30:53 +0000] "GET /images/hm_bg.jpg HTTP/1.0" 200 24736
+9719 [30/Apr/1998:21:31:19 +0000] "GET /french/splash_inet.html HTTP/1.0" 200 3781
+9719 [30/Apr/1998:21:31:22 +0000] "GET /images/hm_nbg.jpg HTTP/1.0" 304 -
+34600 [04/May/1998:14:28:03 +0000] "GET /images/home_intro.anim.gif HTTP/1.0" 200 60349
