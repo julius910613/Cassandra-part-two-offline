@@ -5,20 +5,20 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.zip.GZIPInputStream;
 
-import static org.junit.Assert.*;
+
 /**
  * Created by fanchenli on 2/11/14.
  */
 public class ReadContent {
-    //private final File dataDir = new File("/home/fanchenli/Downloads");
-    private final File dataDir = new File("/home/ubuntu/data/cassandra-test-dataset");
+    private final File dataDir = new File("/home/fanchenli/Downloads");
+    //private final File dataDir = new File("/home/ubuntu/data/cassandra-test-dataset");
     // 1,352,794,346 lines, 13050324662bytes (13G), md5sum=b7089321366fe6f8131196b81d060c5d
     // first line: 34600 [30/Apr/1998:21:30:17 +0000] "GET /images/hm_bg.jpg HTTP/1.0" 200 24736
 
     // last line:  515626 [26/Jul/1998:21:59:55 +0000] "GET /english/images/team_hm_header.gif HTTP/1.1" 200 763
-   // private final File logFile = new File(dataDir, "loglite");
+   private final File logFile = new File(dataDir, "loglite");
    // cassandra-test-dataset
-    private final File logFile = new File(dataDir, "CSC8101-logfile.gz");
+    //private final File logFile = new File(dataDir, "CSC8101-logfile.gz");
     private int count;
 
     private ClientLi cl = new ClientLi();
@@ -34,8 +34,8 @@ public class ReadContent {
     public void readLine() throws IOException, ParseException {
         try (
                final FileInputStream fileInputStream = new FileInputStream(logFile);
-               final GZIPInputStream gzipInputStream = new GZIPInputStream(fileInputStream);
-               final InputStreamReader inputStreamReader = new InputStreamReader(gzipInputStream);
+               //final GZIPInputStream gzipInputStream = new GZIPInputStream(fileInputStream);
+               final InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);
                final BufferedReader bufferedReader = new BufferedReader(inputStreamReader)
         ) {
 
@@ -101,21 +101,6 @@ public class ReadContent {
         }
     }
 
-    public static void  main(String[] args){
 
-        ReadContent rd = new ReadContent();
-
-        try {
-            rd.readLine();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
-      //  ClientLi cl  = new ClientLi();
-      //  cl.connect();
-       // cl.CountNumber(34600);
-    }
 
 }

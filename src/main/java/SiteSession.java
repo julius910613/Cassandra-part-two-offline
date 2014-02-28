@@ -41,9 +41,9 @@ public class SiteSession {
     /**
      * Creates a new SiteSession instance based on its first hit.
      *
-     * @param id the session id
+     * @param id             the session id
      * @param firstHitMillis the time of the first hit in the session, in milliseconds since unix epoch
-     * @param url the url of the first hit
+     * @param url            the url of the first hit
      */
     public SiteSession(String id, long firstHitMillis, String url) {
         this.id = id;
@@ -51,25 +51,7 @@ public class SiteSession {
         update(firstHitMillis, url);
     }
 
-    public void resetHyperloglog(){
-        hyperLogLog = new HyperLogLog(0.05);
-    }
-
-    public void resetHitCount(){
-        hitCount = 0;
-    }
-
-    public void reset(){
-        hyperLogLog = new HyperLogLog(0.05);
-        hitCount = 0;
-        timeout = false;
-
-        outOfOrder = false;
-
-        flagNormal = false;
-    }
-
-    public SiteSession(){
+    public SiteSession() {
 
     }
 
@@ -80,19 +62,41 @@ public class SiteSession {
         globalLastHitMillis = 0;
     }
 
-    public boolean getflagNormal(){
+    public static void setGlobalLastHitMillis(long hitMillis) {
+        globalLastHitMillis = hitMillis;
+    }
+
+    public void resetHyperloglog() {
+        hyperLogLog = new HyperLogLog(0.05);
+    }
+
+    public void resetHitCount() {
+        hitCount = 0;
+    }
+
+    public void reset() {
+        hyperLogLog = new HyperLogLog(0.05);
+        hitCount = 0;
+        timeout = false;
+
+        outOfOrder = false;
+
+        flagNormal = false;
+    }
+
+    public boolean getflagNormal() {
         return flagNormal;
     }
 
-    public boolean getTimeOut(){
+    public boolean getTimeOut() {
         return timeout;
     }
 
-    public boolean getOutOfOrder(){
+    public boolean getOutOfOrder() {
         return outOfOrder;
     }
 
-    public void setID(String ID){
+    public void setID(String ID) {
         id = ID;
     }
 
@@ -104,7 +108,7 @@ public class SiteSession {
         return firstHitMillis;
     }
 
-    public void setFirstHitMillis(long millis){
+    public void setFirstHitMillis(long millis) {
         firstHitMillis = millis;
     }
 
@@ -124,21 +128,21 @@ public class SiteSession {
      * Modify the session by adding a new hit.
      *
      * @param hitMillis the time of the hit in the session, in milliseconds since unix epoch
-     * //@param url the url of the hit
-     *
-     * //@throws IllegalArgumentException if the time is less that the global max
-     * //or after the session's timeout
+     *                  //@param url the url of the hit
+     *                  <p/>
+     *                  //@throws IllegalArgumentException if the time is less that the global max
+     *                  //or after the session's timeout
      */
     public void update(long hitMillis, String url) {
 
-        if(lastHitMillis > 0 && lastHitMillis+MAX_IDLE_MS < hitMillis) {
+        if (lastHitMillis > 0 && lastHitMillis + MAX_IDLE_MS < hitMillis) {
 
             //throw new IllegalArgumentException("interval since last hit exceeds session timeout");
             timeout = true;
         }
         this.lastHitMillis = hitMillis;
 
-        if(hitMillis < globalLastHitMillis) {
+        if (hitMillis < globalLastHitMillis) {
             outOfOrder = true;
 
             //throw new IllegalArgumentException("hit processed out of order");
@@ -146,9 +150,9 @@ public class SiteSession {
         //globalLastHitMillis = hitMillis;
 
         //hitCount++;
-       // hyperLogLog.offer(url);
+        // hyperLogLog.offer(url);
 
-        if(timeout == false && outOfOrder == false){
+        if (timeout == false && outOfOrder == false) {
 
             flagNormal = true;
 
@@ -157,7 +161,7 @@ public class SiteSession {
 
     }
 
-    public void addHitCount(long hitMillis, String url){
+    public void addHitCount(long hitMillis, String url) {
 
         timeout = false;
 
@@ -179,7 +183,7 @@ public class SiteSession {
      * @return true if the session has expired, false otherwise
      */
     public boolean isExpired() {
-        return globalLastHitMillis-lastHitMillis > MAX_IDLE_MS;
+        return globalLastHitMillis - lastHitMillis > MAX_IDLE_MS;
     }
 
 }
